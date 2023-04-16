@@ -14,6 +14,11 @@ module.exports = {
     agrupar (livro, cap, numI, numF) {
         numI = numI == 0 ? 1 : numI;
         numF = numF < numI ? numI : numF;
+        if (cap > livro.capitulos) {
+            cap = livro.capitulos
+        } else if (numF > livro.leitura[cap]["versi"]) {
+            numF = livro.leitura[cap]["versi"];
+        }
         
         let escolhido = [];
         for (i = numI; i <= numF; i++) {

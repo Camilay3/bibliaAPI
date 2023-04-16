@@ -5,4 +5,4 @@ const novo = require('./textosNovo')
 const exemplo = require('./views/script')
 
 // Área de retorno
-//console.log(fun.agrupar(antigo.genesis, 1, 1, antigo.genesis.leitura[1]["versi"]));
+//console.log(fun.agrupar());
