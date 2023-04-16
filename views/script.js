@@ -34,13 +34,6 @@ hbs.registerHelper('json', function (content) {
 
 let mensagem;
 app.post('/resultado', (req, res) => {
-    res.render('./index', {
-        txts_old: antigo.livros,
-        selected: 1,
-        txts_new: novo.livros,
-        message: mensagem
-    })
-
     const { livro, capitulo, verI, verF } = req.body; // Recebe os valores do formulário
 
     //ANTIGO 
@@ -55,7 +48,7 @@ app.post('/resultado', (req, res) => {
 
                             for (d = 1; d <= antigo.livros[a].leitura[b]["versi"]; d++) {
                                 if (d == verF) { // Para saber o versículo final
-                                    return mensagem = fun.agrupar(antigo.livros[a], b, c, d);
+                                    mensagem = fun.agrupar(antigo.livros[a], b, c, d);
     }}}}}}}}
 
     // NOVO 
@@ -70,6 +63,13 @@ app.post('/resultado', (req, res) => {
 
                             for (d = 1; d <= novo.livros[a].leitura[b]["versi"]; d++) {
                                 if (d == verF) { // Para saber o versículo final
-                                    return mensagem = fun.agrupar(novo.livros[a], b, c, d);
+                                    mensagem = fun.agrupar(novo.livros[a], b, c, d);
     }}}}}}}}
+
+    res.render('./index', {
+        txts_old: antigo.livros,
+        selected: 1,
+        txts_new: novo.livros,
+        message: mensagem
+    })
 });
