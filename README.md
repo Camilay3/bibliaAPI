@@ -51,5 +51,5 @@ Para encerrar o processo, utilize Ctrl+C
 ```
 
 ## Créditos
-→ Documentar o código (responsável: Camila Azevedo)<br>
-→ Documentar os textos (responsáveis: Camila Azevedo, João Gabriel, Viviane Rodrigues, Maxwel Gomes, Daniel Anastácio e Maria Letícia)
+→ Documentar o código (responsáveis: [Camila Azevedo](https://github.com/Camilay3) e [Leandro Fé](https://github.com/LeandroLFE))<br>
+→ Documentar os textos (responsáveis: [Camila Azevedo](https://github.com/Camilay3), [João Gabriel](https://github.com/JGabrielJ), [Viviane Rodrigues](https://github.com/vivirnogueira), [Maxwel Gomes](https://github.com/maxw-santos), [Daniel Anastácio](https://github.com/Daniel-Anastacio) e [Maria Letícia](https://github.com/leticiadutra22-23))
