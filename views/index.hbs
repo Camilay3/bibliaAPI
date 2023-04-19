@@ -55,78 +55,98 @@
     </form>
 
     <script>
-            const txts_old = {{{json txts_old}}}
-            const txts_new = {{{json txts_new}}}
-            const livro = document.querySelector('#Livro');
-            let listaCap = document.querySelector('#Capítulo');
-            let listaVerI = document.querySelector('#VersículoI');
-            let listaVerF = document.querySelector('#VersículoF');
+        const txts_old = {{{json txts_old}}}
+        const txts_new = {{{json txts_new}}}
+        const livro = document.querySelector('#Livro');
+        let listaCap = document.querySelector('#Capítulo');
+        let listaVerI = document.querySelector('#VersículoI');
+        let listaVerF = document.querySelector('#VersículoF');
 
-            let nomes; // recupera o livro escolhido na função mudou
+        let nomes; // recupera o livro escolhido na função mudou
 
-            function mudou1(valor) { //  MUDANDO LIVRO
-                for (a = 0; a < txts_old.length; a++){ // Verifica no antigo testamento
-                    if (txts_old[a].nome == valor){ // Procura o livro
-                        for (z = 1; z <= txts_old[a].capitulos; z++) { // Lista os capítulos
-                            let option = document.createElement('option');
-                            option.value = z;
-                            let conteudo = document.createTextNode(z);
-                            option.appendChild(conteudo);
+        function mudou1(valor) { //  MUDANDO LIVRO
+            // Limpar as options
+            var L = listaCap.options.length - 1;
 
-                            listaCap.appendChild(option);
-                        };
-                        return nomes = txts_old[a].nome
-                    }
+            for (var i = L; i >= 1; i--) {
+                listaCap.remove(i)
+            }
+
+            // Rodar a função
+            for (a = 0; a < txts_old.length; a++){ // Verifica no antigo testamento
+                if (txts_old[a].nome == valor){ // Procura o livro
+                    for (z = 1; z <= txts_old[a].capitulos; z++) { // Lista os capítulos
+                        let option = document.createElement('option');
+                        option.value = z;
+                        let conteudo = document.createTextNode(z);
+                        option.appendChild(conteudo);
+
+                        listaCap.appendChild(option);
+                    };
+                    return nomes = txts_old[a].nome
                 }
-                for (a = 0; a < txts_new.length; a++){ // Verifica no novo testamento
-                    if (txts_new[a].nome == valor){ // Procura o livro
-                        for (z = 1; z <= txts_new[a].capitulos; z++) { // Lista os capítulos
-                            let option = document.createElement('option');
-                            option.value = z;
-                            let conteudo = document.createTextNode(z);
-                            option.appendChild(conteudo);
+            }
+            for (a = 0; a < txts_new.length; a++){ // Verifica no antigo testamento
+                if (txts_new[a].nome == valor){ // Procura o livro
+                    for (z = 1; z <= txts_new[a].capitulos; z++) { // Lista os capítulos
+                        let option = document.createElement('option');
+                        option.value = z;
+                        let conteudo = document.createTextNode(z);
+                        option.appendChild(conteudo);
 
-                            listaCap.appendChild(option);
-                        };
-                        return nomes = txts_new[a].nome
-                    }
+                        listaCap.appendChild(option);
+                    };
+                    return nomes = txts_new[a].nome
                 }
-            };
-            
-            function mudou2(valor) { // MUDANDO CAPÍTULO
-                for (a = 0; a < txts_old.length; a++){ // Verifica no antigo testamento
-                    if (txts_old[a].nome == nomes){ // Procura o livro
-                        for (z = 1; z <= txts_old[a].leitura[valor]["versi"]; z++) { // Lista os versículos
-                            let option = document.createElement('option');
-                            option.value = z;
-                            let conteudo = document.createTextNode(z);
-                            option.appendChild(conteudo);
+            }
+        };
 
-                            listaVerI.appendChild(option.cloneNode(true))
-                            listaVerF.appendChild(option)
-                            if (txts_old[a].leitura[valor]["versi"] == z) {
-                                option.selected = true
-                            }
-                        }
-                    }
-                }
-                for (a = 0; a < txts_new.length; a++){ // Verifica no antigo testamento
-                    if (txts_new[a].nome == nomes){ // Procura o livro
-                        for (z = 1; z <= txts_new[a].leitura[valor]["versi"]; z++) { // Lista os versículos
-                            let option = document.createElement('option');
-                            option.value = z;
-                            let conteudo = document.createTextNode(z);
-                            option.appendChild(conteudo);
+        function mudou2(valor) { // MUDANDO CAPÍTULO
+            // Limpar as options
+            var M = listaVerI.options.length - 1;
+            var N = listaVerF.options.length - 1;
 
-                            listaVerI.appendChild(option.cloneNode(true))
-                            listaVerF.appendChild(option)
-                            if (txts_new[a].leitura[valor]["versi"] == z) {
-                                option.selected = true
-                            }
+            for (var i = M; i >= 0; i--) {
+                listaVerI.remove(i)
+            }
+            for (var i = N; i >= 0; i--) {
+                listaVerF.remove(i)
+            }
+
+            // Rodar a função
+            for (a = 0; a < txts_old.length; a++){ // Verifica no antigo testamento
+                if (txts_old[a].nome == nomes){ // Procura o livro
+                    for (z = 1; z <= txts_old[a].leitura[valor]["versi"]; z++) { // Lista os versículos
+                        let option = document.createElement('option');
+                        option.value = z;
+                        let conteudo = document.createTextNode(z);
+                        option.appendChild(conteudo);
+
+                        listaVerI.appendChild(option.cloneNode(true))
+                        listaVerF.appendChild(option)
+                        if (txts_old[a].leitura[valor]["versi"] == z) {
+                            option.selected = true
                         }
                     }
                 }
             }
+            for (a = 0; a < txts_new.length; a++){ // Verifica no antigo testamento
+                if (txts_new[a].nome == nomes){ // Procura o livro
+                    for (z = 1; z <= txts_new[a].leitura[valor]["versi"]; z++) { // Lista os versículos
+                        let option = document.createElement('option');
+                        option.value = z;
+                        let conteudo = document.createTextNode(z);
+                        option.appendChild(conteudo);
+
+                        listaVerI.appendChild(option.cloneNode(true))
+                        listaVerF.appendChild(option)
+                        if (txts_new[a].leitura[valor]["versi"] == z) {
+                            option.selected = true
+                        }
+                    }
+                }
+            }
+        }
     </script>
     <h1 style="margin: 20px;">Resultado:</h1>
     <p>{{message}}</p>
