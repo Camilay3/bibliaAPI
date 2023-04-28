@@ -20689,7 +20689,7 @@ let canticos = fun.newLivro (26, "Cânticos", "Cant", 8, {
         14: "14.– Foge, meu bem-amado, como a gazela, ou como o cervozinho sobre os montes perfumados!"}
 });
 
-let sabedoria = fun.newLivro (27, "Sabedoria", "", 19, {
+let sabedoria = fun.newLivro (27, "Sabedoria", "Sb", 19, {
     1: {"versi": 16,
         1: "1.Amai a justiça, vós que governais a terra, tende para com o Senhor sentimentos perfeitos, e procurai-o na simplicidade do coração,*",
         2: "2.porque ele é encontrado pelos que não o tentam, e se revela aos que não lhe recusam sua confiança;",
