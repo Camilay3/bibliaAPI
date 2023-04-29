@@ -3880,7 +3880,7 @@ let joao = fun.newLivro(50, "João", "Jo", 21, {
         25: "25.Jesus fez ainda muitas outras coisas. Se fossem escritas uma por uma, penso que nem o mundo inteiro poderia conter os livros que se deveriam escrever."}
 });
 
-let atos = fun.newLivro(51, "Atos dos apóstolos", "At", 28, {
+let atos = fun.newLivro(51, "Atos", "At", 28, {
     1: {"versi": 26,
         1: "1.Em minha primeira narração, ó Teófilo, contei toda a sequência das ações e dos ensinamentos de Jesus,",
         2: "2.desde o princípio até o dia em que, depois de ter dado pelo Espírito Santo suas instruções aos apóstolos que escolhera, foi arrebatado (ao céu).",
