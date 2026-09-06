@@ -1,55 +1,71 @@
-# Descrição
-Bíblia completa (73 livros) em português.
+# Bíblia API
 
-## Instalação
+API HTTP em Node.js com os 73 livros da Bíblia em português.
+
+## Rodando localmente
+
 ```bash
-  # Clonar o repositório 
-  $ git clone https://github.com/Camilay3/bibliaAPI
+npm install
+npm start
 ```
+
+Por padrão, a API fica em `http://localhost:3020`. Para trocar a porta:
+
 ```bash
-  # Navegar até a pasta
-  $ cd bibliaAPI
+PORT=3000 npm start
 ```
+
+Modo de desenvolvimento (reinício nativo do Node.js):
+
 ```bash
-  # Instalar dependências 
-  npm install
+npm run dev
 ```
+
+## Produção e segurança
+
+A API já envia headers de segurança, limita cada IP a 300 requisições por 15 minutos, rejeita URLs maiores que 2048 caracteres e encerra conexões lentas. O limite pode ser alterado com `RATE_LIMIT`.
+
+Para publicar atrás de um proxy reverso com HTTPS:
+
 ```bash
-  # Iniciar a api
-  npm start
+NODE_ENV=production REQUIRE_HTTPS=true TRUST_PROXY=1 npm start
 ```
 
-## Acesso ao exemplo
-Após iniciar, é possível acessar a página de exemplo:<br>
-→ <a target="_blank" href="http://localhost::3020">http://localhost::3020</a>
+`TRUST_PROXY` só deve ser usado quando a aplicação não estiver acessível diretamente pela internet. Para restringir navegadores a uma origem específica, defina `CORS_ORIGIN`; sem essa variável, a API pública aceita qualquer origem.
 
-## Uso
-Template
-```javascript
-  // Para exibir valor diretamente
-  console.log(fun.agrupar(testamento.livro, capítulo, versículo inicial, versículo final))
-  
-  // Para exibir valor utilizando listas
-  console.log(fun.agrupar(testamento.livros[índice do livro], capítulo, versículo inicial, versículo final))
-  
-  // Para exibir o capítulo inteiro
-  console.log(fun.agrupar(testamento.livro, capítulo, 1, testamento.livro.leitura[capítulo]["versi"]));
-```
+## Swagger / OpenAPI
 
-Exemplo 
-```javascript
-  // Diretamente (Gn 2:1-3)
-  console.log(fun.agrupar(antigo.genesis, 2, 1, 3))
-  
-  // Utilizando listas (Gn 2)
-  console.log(fun.agrupar(antigo.livros[0], 2, 1, antigo.livros[0].leitura[2]["versi"]))
-```
+Com a API rodando, abra a documentação interativa em:
 
-Para encerrar o processo, utilize Ctrl+C
+`http://localhost:3020/api-docs`
+
+O documento OpenAPI em JSON fica disponível em:
+
+`http://localhost:3020/swagger.json`
+
+## Endpoints
+
+`GET /` retorna informações e os endpoints disponíveis.
+
+`GET /api/livros` lista os livros. Filtre por testamento com `?testamento=antigo` ou `?testamento=novo`.
+
+`GET /api/livros/:livro` retorna os dados do livro e a quantidade de versículos por capítulo. O livro pode ser identificado por nome, abreviação ou ID:
+
 ```bash
-  Deseja finalizar o arquivo em lotes (S/N)? s
+curl http://localhost:3020/api/livros/Joao
+curl http://localhost:3020/api/livros/43
 ```
 
-## Créditos
-→ Documentar o código (responsáveis: [Camila Azevedo](https://github.com/Camilay3) e [Leandro Fé](https://github.com/LeandroLFE))<br>
-→ Documentar os textos (responsáveis: [Camila Azevedo](https://github.com/Camilay3), [João Gabriel](https://github.com/JGabrielJ), [Viviane Rodrigues](https://github.com/vivirnogueira), [Maxwel Gomes](https://github.com/maxw-santos), [Daniel Anastácio](https://github.com/Daniel-Anastacio) e [Maria Letícia](https://github.com/leticiadutra22-23))
+`GET /api/livros/:livro/capitulos/:capitulo` retorna os versículos e o texto agrupado. Use `inicio` e `fim` para selecionar um intervalo:
+
+```bash
+curl 'http://localhost:3020/api/livros/Joao/capitulos/3?inicio=1&fim=5'
+```
+
+As respostas são JSON. A API aceita requisições de origens diferentes e retorna `400` para parâmetros inválidos, `404` para livro/capítulo inexistente e `500` para falhas internas.
+
+## Testes
+
+```bash
+npm test
+```

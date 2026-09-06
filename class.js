@@ -1,29 +1,17 @@
 // Estrutura do objeto
 module.exports = {
     newLivro (i, n, a, c, l) {
-        function Livro (id, nome, abr, capitulos, leitura) {
-            this.id = id;
-            this.nome = nome;
-            this.abr = abr;
-            this.capitulos = capitulos;
-            this.leitura = leitura;
-        }
-        return new Livro (i, n, a, c, l)
+        return { id: i, nome: n, abr: a, capitulos: c, leitura: l };
     },
     
     agrupar (livro, cap, numI, numF) {
-        numI = numI == 0 ? 1 : numI;
-        numF = numF < numI ? numI : numF;
-        if (cap > livro.capitulos) {
-            cap = livro.capitulos
-        } else if (numF > livro.leitura[cap]["versi"]) {
-            numF = livro.leitura[cap]["versi"];
-        }
-        
-        let escolhido = [];
-        for (i = numI; i <= numF; i++) {
-            escolhido.push(livro.leitura[cap][i]);
-        };
+        const leitura = livro.leitura[cap];
+        if (!leitura) return "";
+
+        const inicio = Math.max(1, Number(numI) || 1);
+        const fim = Math.min(leitura.versi, Math.max(inicio, Number(numF) || inicio));
+        const escolhido = [];
+        for (let i = inicio; i <= fim; i += 1) escolhido.push(leitura[i]);
         return escolhido.join(" ");
     }
 };
